@@ -11,15 +11,16 @@ def load_data(file_name):
 
 
 def get_biggest_bar(data_of_bars):
-    the_biggest_bar = max(data_of_bars, key=lambda bar: bar['properties']
-                          ['Attributes']['SeatsCount'])
+    the_biggest_bar = max(data_of_bars,
+                          key=lambda bar: bar['properties']['Attributes']
+                                             ['SeatsCount'])
     print_bar(the_biggest_bar, 'big')
 
 
 def get_smallest_bar(data_of_bars):
     the_smallest_bar = min(data_of_bars,
-                           key=lambda bar: bar['properties']['Attributes']
-                           ['SeatsCount'])
+                           key=lambda bar: bar['properties']['Attributes'] \
+                                              ['SeatsCount'])
     print_bar(the_smallest_bar, 'small')
 
 
@@ -30,8 +31,8 @@ def get_closest_bar(data_of_bars):
         client_coordinate = (longitude, latitude)
         closest_bar = min(data_of_bars,
                           key=lambda bar: vincenty(client_coordinate,
-                                                   bar['geometry'][
-                                                       'coordinates']))
+                                                   bar['geometry']
+                                                      ['coordinates']))
         print_bar(closest_bar, 'closest')
 
 
