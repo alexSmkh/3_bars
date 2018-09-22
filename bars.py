@@ -14,29 +14,25 @@ def get_biggest_bar(data_of_bars):
     the_biggest_bar = max(data_of_bars['features'],
                           key=lambda bar: bar['properties']['Attributes']
                           ['SeatsCount'])
-    return the_biggest_bar
+    print_biggest_bar(the_biggest_bar)
 
 
 def get_smallest_bar(data_of_bars):
     the_smallest_bar = min(data_of_bars['features'],
                            key=lambda bar: bar['properties']['Attributes']
                            ['SeatsCount'])
-    return the_smallest_bar
+    print_smallest_bar(the_smallest_bar)
 
 
-def get_closest_bar(data_of_bars, coordinate_longitude, coordinate_latitude):
-    client_coordinate = (coordinate_longitude, coordinate_latitude)
+def get_closest_bar(data_of_bars):
+    longitude = get_longitude()
+    latitude = get_latitude()
+
+    client_coordinate = (longitude, latitude)
     closest_bar = min(data_of_bars['features'],
                       key=lambda bar: vincenty(client_coordinate,
                                                bar['geometry']['coordinates']))
-    return closest_bar
-
-
-def print_bar(bar):
-    print('Самый маленький бар - '
-          + bar['properties']['Attributes']['Name'] + '. Там '
-          + str(bar['properties']['Attributes']['SeatsCount'])
-          + ' мест.')
+    print_nearest_bar(closest_bar)
 
 
 def get_longitude():
@@ -53,6 +49,20 @@ def print_nearest_bar(bar):
     print('Ближайший к Вам бар: ' + bar['properties']['Attributes']['Name'])
 
 
+def print_smallest_bar(small_bar):
+    print('Самый маленький бар - '
+          + small_bar['properties']['Attributes']['Name'] + '. Там '
+          + str(small_bar['properties']['Attributes']['SeatsCount'])
+          + ' мест.')
+
+
+def print_biggest_bar(big_bar):
+    print('Самый большой бар - '
+          + big_bar['properties']['Attributes']['Name'] + '. Там '
+          + str(big_bar['properties']['Attributes']['SeatsCount'])
+          + ' мест.')
+
+
 def get_file_name():
     file_name = sys.argv[1]
     return file_name
@@ -62,14 +72,9 @@ if __name__ == '__main__':
     try:
         json_file_name = get_file_name()
         data_from_json_file = load_data(json_file_name)
-        biggest_bar = get_biggest_bar(data_from_json_file)
-        smallest_bar = get_smallest_bar(data_from_json_file)
-        print_bar(biggest_bar)
-        print_bar(smallest_bar)
-        longitude = get_longitude()
-        latitude = get_latitude()
-        nearest_bar = get_closest_bar(data_from_json_file, longitude, latitude)
-        print_nearest_bar(nearest_bar)
+        get_biggest_bar(data_from_json_file)
+        get_smallest_bar(data_from_json_file)
+        get_closest_bar(data_from_json_file)
 
     except IndexError:
         print('You forgot to enter the file name.')
