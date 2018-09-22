@@ -59,9 +59,14 @@ def print_nearest_bar(bar):
     print('Ближайший к Вам бар: ' + bar['properties']['Attributes']['Name'])
 
 
+def get_file_name():
+    file_name = sys.argv[1]
+    return file_name
+
+
 if __name__ == '__main__':
     try:
-        json_file_name = sys.argv[1]
+        json_file_name = get_file_name()
         data_from_json_file = load_data(json_file_name)
         biggest_bar = get_biggest_bar(data_from_json_file)
         smallest_bar = get_smallest_bar(data_from_json_file)
