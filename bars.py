@@ -59,8 +59,10 @@ if __name__ == '__main__':
     try:
         json_file_name = sys.argv[1]
         data_from_json_file = load_data(json_file_name)
-        print_the_biggest_bar(get_biggest_bar(data_from_json_file))
-        print_the_smallest_bar(get_smallest_bar(data_from_json_file))
+        biggest_bar = get_biggest_bar(data_from_json_file)
+        smallest_bar = get_smallest_bar(data_from_json_file)
+        print_the_biggest_bar(biggest_bar)
+        print_the_smallest_bar(smallest_bar)
         longitude, latitude = get_coordinates_from_the_console()
         nearest_bar = get_closest_bar(data_from_json_file, longitude, latitude)
         print_nearest_bar(nearest_bar)
