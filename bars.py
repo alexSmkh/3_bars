@@ -32,16 +32,10 @@ def get_closest_bar(data_of_bars, coordinate_longitude, coordinate_latitude):
     return closest_bar
 
 
-def print_the_biggest_bar(big_bar):
-    print('Самый большой бар - '
-          + big_bar['properties']['Attributes']['Name'] + '. Там '
-          + str(big_bar['properties']['Attributes']['SeatsCount']) + ' мест.')
-
-
-def print_the_smallest_bar(small_bar):
+def print_bar(bar):
     print('Самый маленький бар - '
-          + small_bar['properties']['Attributes']['Name'] + '. Там '
-          + str(small_bar['properties']['Attributes']['SeatsCount'])
+          + bar['properties']['Attributes']['Name'] + '. Там '
+          + str(bar['properties']['Attributes']['SeatsCount'])
           + ' мест.')
 
 
@@ -70,8 +64,8 @@ if __name__ == '__main__':
         data_from_json_file = load_data(json_file_name)
         biggest_bar = get_biggest_bar(data_from_json_file)
         smallest_bar = get_smallest_bar(data_from_json_file)
-        print_the_biggest_bar(biggest_bar)
-        print_the_smallest_bar(smallest_bar)
+        print_bar(biggest_bar)
+        print_bar(smallest_bar)
         longitude = get_longitude()
         latitude = get_latitude()
         nearest_bar = get_closest_bar(data_from_json_file, longitude, latitude)
